@@ -1,19 +1,143 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+	<head>
+		<meta charset="UTF-8">
+		<link rel="icon" type="image/png" sizes="16x16" href="{{ asset('upload/images/logo/logov2.png') }}">
+		<title>
+			Cuisine de chez vous, Recettes de cuisine traditionnelles.
+		</title>
+		<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+		<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+		<link rel="stylesheet" href="{{ asset('css/Accueil/styles.css') }}">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+		<link rel="stylesheet" href="https://bootswatch.com/5/journal/bootstrap.min.css"> {% block stylesheets %}{% endblock %}
+		</head>
+		<body>
+			<nav>
+				<div class="wrapper">
+					<div class="logo">
+						<a href="{{path('accueil')}}">Cuisine de chez vous</a>
+					</div>
+					<input type="radio" name="slider" id="menu-btn">
+					<input type="radio" name="slider" id="close-btn">
+					<ul class="nav-links">
+						<label for="close-btn" class="btn close-btn">
+							<i class="fas fa-times"></i>
+						</label>
+						<li>
+							<a href="{{path('recette_index')}}" class="desktop-item">Recherche</a>
+							<input type="checkbox" id="showMega">
+							<label href="{{path('recette_index')}}" for="showMega" class="mobile-item">Recherche</label>
+							<div class="mega-box">
+								<div class="content">
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
-</html>
+									<div class="row">
+										<div class="row">
+											<header>Région Favorites</header>
+											<ul class="mega-links">
+												<li>
+													<a href="">Bretagne</a>
+												</li>
+												<li>
+													<a href="">Alsace-Lorraine</a>
+												</li>
+												<li>
+													<a href="">Martinique</a>
+												</li>
+												<li>
+													<a href="">La réunion</a>
+												</li>
+											</ul>
+										</div>
+										<div class="row">
+											<header>Plats</header>
+											<ul class="mega-links">
+												<li>
+													<a href="">Entrées</a>
+												</li>
+												<li>
+													<a href="">Plats</a>
+												</li>
+												<li>
+													<a href="">Desserts</a>
+												</li>
+												<li>
+													<a href="">Boissons</a>
+												</li>
+											</ul>
+										</div>
+										<div class="row">
+											<header>Spécial</header>
+											<ul class="mega-links">
+												<li>
+													<a href="">Végetariens</a>
+												</li>
+												<li>
+													<a href="">Sans sucre</a>
+												</li>
+												<li>
+													<a href="#">Sans lactose</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</li>
+						</li>
+						<li>
+							<a href="{{path('carte')}}">La carte</a>
+						</li>
+
+						<li>
+							<a href="{{path('recette_new')}}">Publier Recette</a>
+						</li>
+
+						<li>
+							<a href="{{path('apropos')}}">A propos</a>
+						</li>
+
+
+						<li>
+							{% if app.user %}
+								<a href="{{path('user_show',{'id':app.user.id})}}" class="desktop-item">Espace Perso</a>
+								<input type="checkbox" id="showDrop">
+								<label for="showDrop" class="mobile-item">Espace Perso</label>
+								<ul class="drop-menu">
+									<li>
+										<a href="{{path('user_create',{'id':app.user.id})}}">Mes créations</a>
+									</li>
+									<li>
+										<a href="{{path('user_save',{'id':app.user.id})}}">Mes recettes</a>
+									</li>
+									<li>
+										<a href="{{path('user_fav',{'id':app.user.id})}}">Mes Favoris</a>
+									</li>
+									<li>
+										<a href="{{path('user_edit',{'id':app.user.id})}}">Editer Profil</a>
+									</li>
+
+									<li>
+										<a href="{{path('app_logout')}}">Deconnexion</a>
+									</li>
+								{% else %}
+									<li>
+										<a href="{{path('app_login')}}">Connexion</a>
+									</li>
+									<li>
+										<a href="{{path('app_register')}}">Inscription</a>
+									</li>
+
+								{% endif %}
+							</ul>
+						</li>
+					</ul>
+					<label for="menu-btn" class="btn menu-btn">
+						<i class="fas fa-bars"></i>
+					</label>
+				</div>
+			</nav>
+			{% block body %}{% endblock %}
+			{% block javascripts %}{% endblock %}
+		</body>
+	</html>

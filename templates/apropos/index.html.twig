@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+	<div class="about-info whatis">
+		<header class="about-title">
+			<h1>Cuisine de chez vous, qu'est-ce que c'est ?</h1>
+		</header>
+
+		<article class="about-text">
+			<p>Cuisine de chez vous est un site web de recettes de cuisine prônant le partage, la tradition et le savoir-faire français. Retrouver de nombreuses recettes revisitées que vous conaissez déjà, découvrez en de nouvelles et partagez les vôtre et vos avis. Cherchez, Péparez, Mangez !</p>
+		</article>
+
+		<aside class="about-image"><img src="{{ asset('upload/images/apropos/carte_france.gif') }}"></img>
+	</aside>
+
+</div>
+
+<div class="about-info whoare">
+	<header class="about-title">
+		<h1>Qui sommes nous ?</h1>
+	</header>
+
+	<article class="about-creator">
+		<p>
+			Ce site web à été réalisé par 6 étudiants du DUT informatique appartenant à l'Université Lyon 1 : ODIN Gabin, AUBOURG Thomas, LUISETTI Flavien, PICHARD David, MOHAMMAD Ayyan et Olivier dans le cadre du Projet Tuteuré.</p>
+	</article>
+
+	<aside class="about-iut">
+
+		<a href="https://iut.univ-lyon1.fr/" target="_blank">
+			<img src="{{ asset('upload/images/apropos/logo_iut.png') }}"></img>
+	</a>
+</aside></div>{% endblock %}

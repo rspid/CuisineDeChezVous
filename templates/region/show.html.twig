@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+	<h1>{{ region.nom }}</h1>
+
+	{% for recette in region.recettes %}
+		<div>-<a href="{{ path('recette_show', {'id': recette.id}) }}">{{ recette.nom }}</a>
+		</div>
+	{% endfor %}
+
+	<a href="{{ path('region_index') }}">back to list</a>
+
+{% endblock %}

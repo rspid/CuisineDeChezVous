@@ -1,0 +1,135 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<h1>Recette</h1>
+	<div class="recette_img">
+		<img class="categorie_img_source" src="{{ asset('upload/images/recettes/'~ recette.nomImage) }}"></img>
+</div>
+<a href="{{ path('recette_note', {'id':recette.id}) }}" class="btn btn-link js-like">
+	{% if app.user and recette.isNoteByUser(app.user) %}
+		<i class="fas fa-thumbs-up"></i>
+	{% else %}
+		<i class="far fa-thumbs-up"></i>
+	{% endif %}
+	<span class="js-likes">{{recette.notes | length }}</span>
+	<span class="js-label">J'aime</span>
+</a>
+<table class="table">
+	<tbody>
+		<tr>
+			<th>Nom</th>
+			<td>{{ recette.nom }}</td>
+		</tr>
+		<tr>
+			<th>Difficulte</th>
+			<td>{{ recette.difficulte }}</td>
+		</tr>
+		<tr>
+			<th>Prix</th>
+			<td>{{ recette.prix }}</td>
+		</tr>
+		<tr>
+			<th>Portions</th>
+			<td>{{ recette.portions }}</td>
+		</tr>
+		<tr>
+			<th>Histoire</th>
+			<td>{{ recette.histoire }}</td>
+		</tr>
+		<tr>
+			<th>Region</th>
+			<td>{{ recette.region }}</td>
+		</tr>
+		<tr>
+			<th>DatePublication</th>
+			<td>{{ recette.datePublication ? recette.datePublication|date('d-m-Y') : '' }}</td>
+		</tr>
+		<tr>
+			<th>Astuce</th>
+			<td>{{ recette.astuce }}</td>
+		</tr>
+		<tr>
+			<th>TempsPreparation</th>
+			<td>{{ recette.tempsPreparation ? recette.tempsPreparation|date('H:i:s') : '' }}</td>
+		</tr>
+		<tr>
+			<th>TempsCuisson</th>
+			<td>{{ recette.tempsCuisson ? recette.tempsCuisson|date('H:i:s') : '' }}</td>
+		</tr>
+		<tr>
+			<th>TempsRepos</th>
+			<td>{{ recette.tempsRepos ? recette.tempsRepos|date('H:i:s') : '' }}</td>
+		</tr>
+	</tbody>
+</table>
+<span class="js-com">
+	{{recette.commentaires|length}}
+	commentaires</span>
+{% for note in recette.notes %}
+	<h3>Utilisateur qui ont noté cette recette :{{ note.user }}</h3>
+{% endfor %}
+<br>
+{{form(form, {attr: {'id': 'form_com' }})}}
+
+	<div class="container-fluid">
+		<div class="row" id="com_list">
+			{% for commentaire in recette.commentaires %}
+				<h1>{{ commentaire.user.pseudo }}</h1>
+				<p>{{ commentaire.description }}
+				</p>
+
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script>
+
+		function onClickBtnNote(event) {
+event.preventDefault();
+
+const url = this.href;
+const spanCount = this.querySelector('span.js-likes');
+const icone = this.querySelector('i');
+
+axios.get(url).then(function (response) {
+spanCount.textContent = response.data.notes;
+
+if (icone.classList.contains('fas')) {
+icone.classList.replace('fas', 'far');
+} else {
+icone.classList.replace('far', 'fas');
+}
+}).catch(function (error) {
+if (error.response.status === 403) {
+window.alert("Vous ne pouvez pas notez un article si vous n'êtes pas connecté");
+} else {
+window.alert("Une erreur s'est produite réessayez plus tard");
+}
+});
+}
+
+document.querySelectorAll('a.js-like').forEach(function (link) {
+link.addEventListener('click', onClickBtnNote);
+})
+
+/* Espace commentaire */
+
+const formCom = document.querySelector('#form_com');
+const comList = document.querySelector('#com_list');
+
+formCom.addEventListener('submit', function (e) {
+e.preventDefault();
+
+fetch(this.action, {
+body: new FormData(e.target),
+method: 'POST'
+}).then(response => response.json()).then(json => {
+console.log(json);
+comList.innerHTML += response.html;
+})
+});
+	</script>
+{% endblock %}

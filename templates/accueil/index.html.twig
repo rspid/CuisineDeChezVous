@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+	{% for message in app.flashes('success') %}
+		<div class="alert alert-success" role="alert">{{ message }}</div>
+	{% endfor %}
+</div>
+<div class="recetteDuJour">
+	<a href="{{ path('recette_show', {'id':rr.id})}}">
+		<h1>{{rr.nom}}</h1>
+		<img class="recetteRandomImg" src="{{ asset('upload/images/recettes/'~ rr.nomImage) }}"></img>
+</a>
+<div class="container">
+	<section class="section_categorie">
+		<header>
+			<h2 class="titre_categorie">
+				Catégories
+			</h2>
+		</header>
+		<div class="container_categorie">
+			{% for categorie in categories %}
+				<article class="categorie">
+					<div class="categorie_img">
+						<img class="categorie_img_source" src="{{ asset('upload/images/categorie/'~ categorie.imgName) }}"></img>
+				</div>
+				<div class="categorie_titre">
+					<a href="{{ path('categorie', {'nom':categorie.nom})}}">
+						{{ categorie.nom}}
+					</a>
+				</div>
+			</article>
+		{% endfor %}
+	</div>
+
+
+</section></div>{% endblock %}

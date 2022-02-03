@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+	{% for recette in recetteCateg %}
+
+		<a href="{{ path('recette_show', {'id':recette.id})}}">
+			{{ recette.nom}}
+		</a>
+	{% endfor %}
+{% endblock %}

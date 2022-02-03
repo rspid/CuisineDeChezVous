@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<h1>Recettes créees</h1>
+	{% for recette in app.user.recettes %}
+		<div>{{ recette.nom }}
+		</div>
+	{% endfor %}
+	<a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
+
+{% endblock %}

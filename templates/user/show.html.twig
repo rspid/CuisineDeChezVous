@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<h1>{{user.pseudo}}</h1>
+
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Email</th>
+				<td>{{ user.email }}</td>
+			</tr>
+			<tr>
+				<th>DateInscription</th>
+				<td>{{ user.dateInscription ? user.dateInscription|date('d-m-Y') : '' }}</td>
+			</tr>
+			<tr>
+				<th>Description</th>
+				<td>{{ user.description }}</td>
+			</tr>
+		</tbody>
+	</table>
+	<a href="{{ path('user_create', {'id': user.id}) }}">Mes créations</a>
+	<a href="{{ path('user_fav', {'id': user.id}) }}">Mes Favoris</a>
+	<a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
+
+{% endblock %}
