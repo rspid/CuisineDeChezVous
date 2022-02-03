@@ -17,6 +17,8 @@ Puis exécuter la création de la base de donnée avec la commande : `symfony co
 
 Exécuter la migration en base de donnée : `symfony console doctrine:migration:migrate`
 
+Après importer les données grâce au fichier .sql pour remplir votre base avec mes données.
+
 ## Update
 
 Toutes les fonctionnalités back-end de la version sont opérationnnels manque plus qu'à revoir le front avec un framework.
