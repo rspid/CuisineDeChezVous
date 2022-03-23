@@ -9,7 +9,9 @@
   font-family: 'Poppins', sans-serif;
 }
 nav{
-  position: sticky;
+  position: fixed;
+  z-index:99;
+  width:100%;
   top:0%;
   background: #f35a5aef;
 }
@@ -302,11 +304,6 @@ nav input{
 
 
 /*------------------------------------------------- DEBUT CSS EDITER_PROFIL.PHP -------------------------------------------------------------- */
-
-
-        body{
-            background-color: #F6E3C5;
-        }
         
         div.all{
             position:relative;
@@ -1047,4 +1044,30 @@ font-size: xx-large;
 }
 .categorie_titre a{
   text-decoration: none;
+}
+
+.img_recetteDuJour{
+  width:50px;
+  height:50px;
+}
+
+.affichageRecette{
+  margin: 0 auto;
+  max-width: 1000px;
+}
+
+.page{
+  width:100%;
+  margin-top:150px;
+}
+.img_recette{
+  width: 400px;;
+  height:300px;
+}
+.img_categ{
+  width:300px;
+  height:200px;
+}
+body {
+  background-color: rgb(243, 150, 150);
 }

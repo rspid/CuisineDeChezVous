@@ -6,22 +6,28 @@
 		<title>
 			Cuisine de chez vous, Recettes de cuisine traditionnelles.
 		</title>
+		{% block stylesheets %}
+			
+		{% endblock %}
+		{% block javascripts %}
+		{% endblock %}
 		<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 		<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-		<link rel="stylesheet" href="{{ asset('css/Accueil/styles.css') }}">
+		<link rel="stylesheet" href="{{ asset('css/accueil/styles.css') }}">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
-		<link rel="stylesheet" href="https://bootswatch.com/5/journal/bootstrap.min.css"> {% block stylesheets %}{% endblock %}
-		</head>
-		<body>
-			<nav>
-				<div class="wrapper">
-					<div class="logo">
-						<a href="{{path('accueil')}}">Cuisine de chez vous</a>
-					</div>
-					<input type="radio" name="slider" id="menu-btn">
-					<input type="radio" name="slider" id="close-btn">
-					<ul class="nav-links">
+		<link rel="stylesheet" href="https://bootswatch.com/5/journal/bootstrap.min.css"> 
+		
+	</head>
+	<body>
+		<nav>
+			<div class="wrapper">
+				<div class="logo">
+					<a href="{{path('accueil')}}">Cuisine de chez vous</a>
+				</div>
+				<input type="radio" name="slider" id="menu-btn">
+				<input type="radio" name="slider" id="close-btn">
+				<ul class="nav-links">
 						<label for="close-btn" class="btn close-btn">
 							<i class="fas fa-times"></i>
 						</label>
@@ -31,22 +37,26 @@
 							<label href="{{path('recette_index')}}" for="showMega" class="mobile-item">Recherche</label>
 							<div class="mega-box">
 								<div class="content">
-
-									<div class="row">
+										<div class="row">
+											<header>Recette du jour</header>
+											<a href="{{path('recetteDuJour')}}">
+													<img class="img_recetteDuJour" src="{{ asset('upload/images/recettes/'~ recetteDuJour.nomImage) }}"></img>
+											</a>
+										</div>
 										<div class="row">
 											<header>Région Favorites</header>
 											<ul class="mega-links">
 												<li>
-													<a href="">Bretagne</a>
+													<a href="{{ path('region_show', {'id':13})}}">Bretagne</a>
 												</li>
 												<li>
-													<a href="">Alsace-Lorraine</a>
+													<a href="{{ path('region_show', {'id':9})}}">Normandie</a>
 												</li>
 												<li>
-													<a href="">Martinique</a>
+													<a href="{{ path('region_show', {'id':2})}}">Martinique</a>
 												</li>
 												<li>
-													<a href="">La réunion</a>
+													<a href="{{ path('region_show', {'id':4})}}">La réunion</a>
 												</li>
 											</ul>
 										</div>
@@ -54,16 +64,16 @@
 											<header>Plats</header>
 											<ul class="mega-links">
 												<li>
-													<a href="">Entrées</a>
+													<a href="{{ path('categorie', {'nom':'Entrées'})}}">Entrées</a>
 												</li>
 												<li>
-													<a href="">Plats</a>
+													<a href="{{ path('categorie', {'nom':'Plats'})}}">Plats</a>
 												</li>
 												<li>
-													<a href="">Desserts</a>
+													<a href="{{ path('categorie', {'nom':'Desserts'})}}">Desserts</a>
 												</li>
 												<li>
-													<a href="">Boissons</a>
+													<a href="{{ path('categorie', {'nom':'Apéritifs'})}}">Apéritifs</a>
 												</li>
 											</ul>
 										</div>
@@ -137,7 +147,12 @@
 					</label>
 				</div>
 			</nav>
-			{% block body %}{% endblock %}
-			{% block javascripts %}{% endblock %}
+			<div class="pageEntiere">
+
+				<div class="page">
+					{% block body %}{% endblock %}
+				</div>
+				
+			</div>
 		</body>
 	</html>

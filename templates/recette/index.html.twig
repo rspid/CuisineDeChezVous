@@ -1,50 +1,22 @@
 {% extends 'base.html.twig' %}
 
-
 {% block body %}
-	<h1>Recette index</h1>
-
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Id</th>
-				<th>Nom</th>
-				<th>Difficulte</th>
-				<th>Prix</th>
-				<th>Portions</th>
-				<th>Histoire</th>
-				<th>Region</th>
-				<th>DatePublication</th>
-				<th>NomImage</th>
-				<th>Astuce</th>
-				<th>TempsPreparation</th>
-				<th>TempsCuisson</th>
-				<th>TempsRepos</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for recette in recettes %}
-				<tr>
-					<td>{{ recette.id }}</td>
-					<td>{{ recette.nom }}</td>
-					<td>{{ recette.difficulte }}</td>
-					<td>{{ recette.prix }}</td>
-					<td>{{ recette.portions }}</td>
-					<td>{{ recette.histoire }}</td>
-					<td>{{ recette.region }}</td>
-					<td>{{ recette.datePublication ? recette.datePublication|date('Y-m-d') : '' }}</td>
-					<td>{{ recette.nomImage }}</td>
-					<td>{{ recette.astuce }}</td>
-					<td>{{ recette.tempsPreparation ? recette.tempsPreparation|date('H:i:s') : '' }}</td>
-					<td>{{ recette.tempsCuisson ? recette.tempsCuisson|date('H:i:s') : '' }}</td>
-					<td>{{ recette.tempsRepos ? recette.tempsRepos|date('H:i:s') : '' }}</td>
-				</tr>
-			{% else %}
-				<tr>
-					<td colspan="14">no records found</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+		<div class="affichageRecette">
+			<div class="row row-cols-1 row-cols-md-2">
+				{% for recette in recettes %}
+					<div class="col mb-4">
+						<a href="{{ path('recette_show', {'id':recette.id})}}">
+							<div class="card">
+								<div class="card-body">
+									<img class="img_recette" src="{{ asset('upload/images/recettes/'~ recette.nomImage) }}"></img>
+									<h4 class="card-title">{{ recette.nom }}</h4>
+									<p class="card-text">{{ recette.histoire }}</p>
+								</div>
+							</div>
+						</a>
+					</div>
+					{% endfor %}
+			</div>
+		</div>
 
 {% endblock %}

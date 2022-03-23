@@ -80,6 +80,9 @@ class Recette
     #[ORM\OneToMany(mappedBy: 'recette', targetEntity: Commentaire::class)]
     private $commentaires;
 
+    #[ORM\Column(type: 'boolean')]
+    private $isRecetteDuJour;
+
     public function __construct()
     {
         $this->userSauvegarde = new ArrayCollection();
@@ -485,5 +488,17 @@ class Recette
         }
 
         return false;
+    }
+
+    public function getIsRecetteDuJour(): ?bool
+    {
+        return $this->isRecetteDuJour;
+    }
+
+    public function setIsRecetteDuJour(bool $isRecetteDuJour): self
+    {
+        $this->isRecetteDuJour = $isRecetteDuJour;
+
+        return $this;
     }
 }

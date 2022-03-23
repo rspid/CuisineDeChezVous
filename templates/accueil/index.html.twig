@@ -5,33 +5,22 @@
 	{% for message in app.flashes('success') %}
 		<div class="alert alert-success" role="alert">{{ message }}</div>
 	{% endfor %}
-</div>
-<div class="recetteDuJour">
-	<a href="{{ path('recette_show', {'id':rr.id})}}">
-		<h1>{{rr.nom}}</h1>
-		<img class="recetteRandomImg" src="{{ asset('upload/images/recettes/'~ rr.nomImage) }}"></img>
-</a>
-<div class="container">
-	<section class="section_categorie">
-		<header>
-			<h2 class="titre_categorie">
-				Catégories
-			</h2>
-		</header>
-		<div class="container_categorie">
+	<div class="affichageRecette">
+		<div class="row row-cols-1 row-cols-md-3">
 			{% for categorie in categories %}
-				<article class="categorie">
-					<div class="categorie_img">
-						<img class="categorie_img_source" src="{{ asset('upload/images/categorie/'~ categorie.imgName) }}"></img>
-				</div>
-				<div class="categorie_titre">
+				<div class="col mb-4">
 					<a href="{{ path('categorie', {'nom':categorie.nom})}}">
-						{{ categorie.nom}}
+						<div class="card">
+								<div class="card-body">
+									<img class="img_categ" src="{{ asset('upload/images/categorie/'~ categorie.imgName) }}"></img>
+									<h4 class="card-title">{{ categorie.nom}}</h4>
+								</div>
+						</div>
 					</a>
 				</div>
-			</article>
-		{% endfor %}
+			{% endfor %}
+		</div>
 	</div>
+		
 
-
-</section></div>{% endblock %}
+{% endblock %}

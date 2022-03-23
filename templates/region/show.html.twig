@@ -2,13 +2,22 @@
 
 
 {% block body %}
-	<h1>{{ region.nom }}</h1>
-
-	{% for recette in region.recettes %}
-		<div>-<a href="{{ path('recette_show', {'id': recette.id}) }}">{{ recette.nom }}</a>
+	<div class="affichageRecette">
+			<div class="row row-cols-1 row-cols-md-2">
+				{% for recette in region.recettes %}
+					<div class="col mb-4">
+						<a href="{{ path('recette_show', {'id':recette.id})}}">
+							<div class="card">
+								<div class="card-body">
+									<img class="img_recette" src="{{ asset('upload/images/recettes/'~ recette.nomImage) }}"></img>
+									<h4 class="card-title">{{ recette.nom }}</h4>
+									<p class="card-text">{{ recette.histoire }}</p>
+								</div>
+							</div>
+						</a>
+					</div>
+					{% endfor %}
+			</div>
 		</div>
-	{% endfor %}
-
-	<a href="{{ path('region_index') }}">back to list</a>
 
 {% endblock %}

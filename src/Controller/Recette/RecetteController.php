@@ -22,14 +22,24 @@ class RecetteController extends AbstractController
 {
     #[Route('/', name: 'recette_index', methods: ['GET'])]
     public function index(RecetteRepository $recetteRepository): Response
-    {
+    {   
         return $this->render('recette/index.html.twig', [
             'recettes' => $recetteRepository->findAll(),
+            'recetteDuJour' => $recetteRepository->findOneBy(array('isRecetteDuJour' => true)),
         ]);
     }
 
+    #[Route('/recette-du-jour', name: 'recetteDuJour', methods: ['GET'])]
+    public function recipeOfTheDay(RecetteRepository $recetteRepository): Response
+    {
+        
+        $recette = $recetteRepository->findOneBy(array('isRecetteDuJour' => true));
+        return $this->redirectToRoute('recette_show', array('id' => $recette->getId()));
+    }
+
+
     #[Route('/new', name: 'recette_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, FileUploader $fileUp): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, FileUploader $fileUp,RecetteRepository $recetteRepository): Response
     {
         $recette = new Recette();
         $form = $this->createForm(RecetteType::class, $recette);
@@ -59,11 +69,12 @@ class RecetteController extends AbstractController
         return $this->renderForm('recette/new.html.twig', [
             'recette' => $recette,
             'form' => $form,
+            'recetteDuJour' => $recetteRepository->findOneBy(array('isRecetteDuJour' => true)),
         ]);
     }
 
     #[Route('/{id}', name: 'recette_show', methods: ['GET', 'POST'])]
-    public function show(Request $request, Recette $recette, EntityManagerInterface $entityManager): Response
+    public function show(Request $request, Recette $recette, EntityManagerInterface $entityManager,RecetteRepository $recetteRepository): Response
     {
         $commentaire = new Commentaire();
 
@@ -85,7 +96,8 @@ class RecetteController extends AbstractController
         }
         return $this->render('recette/show.html.twig', [
             'recette' => $recette,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'recetteDuJour' => $recetteRepository->findOneBy(array('isRecetteDuJour' => true)),
         ]);
     }
 

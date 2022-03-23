@@ -1,5 +1,8 @@
 {% extends 'base.html.twig' %}
 
+{% block javascripts %}
+{% endblock %}
+
 {% block body %}
 	<h1>Recette</h1>
 	<div class="recette_img">
@@ -83,53 +86,3 @@
 	</div>
 {% endblock %}
 
-{% block javascripts %}
-	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-	<script>
-
-		function onClickBtnNote(event) {
-event.preventDefault();
-
-const url = this.href;
-const spanCount = this.querySelector('span.js-likes');
-const icone = this.querySelector('i');
-
-axios.get(url).then(function (response) {
-spanCount.textContent = response.data.notes;
-
-if (icone.classList.contains('fas')) {
-icone.classList.replace('fas', 'far');
-} else {
-icone.classList.replace('far', 'fas');
-}
-}).catch(function (error) {
-if (error.response.status === 403) {
-window.alert("Vous ne pouvez pas notez un article si vous n'êtes pas connecté");
-} else {
-window.alert("Une erreur s'est produite réessayez plus tard");
-}
-});
-}
-
-document.querySelectorAll('a.js-like').forEach(function (link) {
-link.addEventListener('click', onClickBtnNote);
-})
-
-/* Espace commentaire */
-
-const formCom = document.querySelector('#form_com');
-const comList = document.querySelector('#com_list');
-
-formCom.addEventListener('submit', function (e) {
-e.preventDefault();
-
-fetch(this.action, {
-body: new FormData(e.target),
-method: 'POST'
-}).then(response => response.json()).then(json => {
-console.log(json);
-comList.innerHTML += response.html;
-})
-});
-	</script>
-{% endblock %}
